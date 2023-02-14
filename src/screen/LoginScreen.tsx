@@ -17,28 +17,24 @@ export const LoginScreen: React.FC = observer(() => {
 
   return (
     <Box backgroundColor={'pattensBlue'} flex={1}>
-      <Box flex={1} justifyContent={'center'} marginHorizontal={'r'}>
-        <Box flex={0.3}>
-          <Image
-            alignSelf={'center'}
-            borderRadius={50}
-            height={DeviceHelper.calculateHeightRatio(150)}
-            width={DeviceHelper.calculateWidthRatio(150)}
-            source={Images.logo}
-          />
-        </Box>
-
-        <Box flex={0.2}>
-          <EditText
-            textLabel={'Secret Login Key:'}
-            value={secretKey}
-            placeholder={'Enter Key'}
-            onChangeValue={text => {
-              setSecretKey(text);
-            }}
-          />
-        </Box>
-        <Box flex={0.1} marginTop={'mR'}>
+      <Box marginHorizontal={'r'} flex={1} justifyContent={'center'}>
+        <Image
+          marginBottom={'el'}
+          alignSelf={'center'}
+          borderRadius={50}
+          source={Images.logo}
+          height={DeviceHelper.calculateHeightRatio(150)}
+          width={DeviceHelper.calculateWidthRatio(150)}
+        />
+        <EditText
+          textLabel={'Secret Login Key:'}
+          value={secretKey}
+          placeholder={'Enter Key'}
+          onChangeValue={text => {
+            setSecretKey(text);
+          }}
+        />
+        <Box marginVertical={'r'}>
           <Button
             label={'Login to IDAT'}
             onPress={() => {
@@ -47,6 +43,7 @@ export const LoginScreen: React.FC = observer(() => {
             isLight={false}
           />
         </Box>
+
       </Box>
     </Box>
   );

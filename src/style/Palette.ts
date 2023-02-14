@@ -1,8 +1,8 @@
 export const palette = {
-  primary: '#000000',
+  primary: '#6B61DD',
   primary2: '#ffffff',
   fontColorPrimaryBg: '#000000',
-  background: '#E5E5E5',
+  background: '#F7F8FC',
   bg_white: '#F8F8F9',
   card: '#FFFCF8',
   text: '#000000',
@@ -44,5 +44,5 @@ export const palette = {
   blue: '#4791FF',
   blue2: '#2F7BFE',
   darkBlue: 'rgba(47, 123, 254, 0.15)',
-  pattensBlue: '#DFECF4',
+  pattensBlue: '#F7F8FC',
 };

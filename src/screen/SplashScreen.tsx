@@ -8,8 +8,6 @@ import {observer} from 'mobx-react';
 import {Box} from '../component/Box';
 import {Screen} from '../component/Screen';
 import {Image} from '../component/Image';
-import {Text} from '../component/Text';
-import {fonts} from '../style/Fonts';
 
 export const SplashScreen: React.FC = observer(() => {
   const {replace} = useNavigation<StackNavigationProp<StackParamList>>();

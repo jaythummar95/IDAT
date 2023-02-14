@@ -35,7 +35,7 @@ export const Button: React.FC<ButtonProps> = ({
       <Text
         color={isLight ? 'black' : 'primary2'}
         fontSize={15}
-        fontFamily={fonts.poppinsMedium}>
+        fontFamily={fonts.medium}>
         {label}
       </Text>
     </Pressable>

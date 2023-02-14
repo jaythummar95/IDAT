@@ -13,12 +13,18 @@ import {Box} from '../component/Box';
 import {StatusBar} from 'react-native';
 import {useTheme} from '@shopify/restyle';
 import {Theme} from '../style/Theme';
+import {ModuleAlreadyExistsScreen} from '../screen/ModuleAlreadyExistsScreen';
+import {TestingScreen} from '../screen/TestingScreen';
 
 export type StackParamList = {
   SplashScreen: undefined;
   LoginScreen: undefined;
   DashboardScreen: undefined;
   IdAssignmentScreen: undefined;
+  ModuleAlreadyExistsScreen: {
+    ip: string;
+  };
+  TestingScreen: undefined;
 };
 const navigationRef = createNavigationContainerRef<StackParamList>();
 
@@ -46,6 +52,8 @@ export enum Route {
   Login = 'LoginScreen',
   Dashboard = 'DashboardScreen',
   IdAssignment = 'IdAssignmentScreen',
+  ModuleAlreadyExists = 'ModuleAlreadyExistsScreen',
+  Testing = 'TestingScreen',
 }
 
 export const AppNavigator: React.FC = observer(() => {
@@ -66,6 +74,11 @@ export const AppNavigator: React.FC = observer(() => {
             name={Route.IdAssignment}
             component={IdAssignmentScreen}
           />
+          <Stack.Screen
+            name={Route.ModuleAlreadyExists}
+            component={ModuleAlreadyExistsScreen}
+          />
+          <Stack.Screen name={Route.Testing} component={TestingScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </Box>

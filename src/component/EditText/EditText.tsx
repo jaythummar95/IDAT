@@ -4,9 +4,6 @@ import {Box} from '../Box';
 import {Text} from '../Text';
 import {fonts} from '../../style/Fonts';
 import {Input} from '../Input';
-import {Image} from '../Image';
-import { DeviceHelper } from "../../helper/DeviceHelper";
-import { Images } from "../../assets";
 
 export interface EditTextProps {
   textLabel: string;
@@ -20,16 +17,16 @@ export interface EditTextProps {
 export const EditText: React.FC<EditTextProps> = observer(
   ({textLabel, value, onChangeValue, placeholder}: EditTextProps) => {
     return (
-      <Box flex={1}>
+      <Box>
         <Text
           marginVertical={'r'}
           marginTop={'r'}
-          fontFamily={fonts.poppinsRegular}
+          fontFamily={fonts.regular}
           color={'black'}
           fontSize={17}>
           {textLabel}
         </Text>
-        <Box flex={0.5}>
+        <Box>
           <Input
             isBottomMargin={false}
             placeholder={placeholder}

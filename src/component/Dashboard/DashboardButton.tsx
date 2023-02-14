@@ -17,16 +17,17 @@ export const DashboardButton: React.FC<DashboardButtonProps> = observer(
         <Pressable
           onPress={onPress}
           borderRadius={10}
-          borderColor={'primary2'}
+          borderColor={'pattensBlue'}
           borderWidth={1}
-          marginVertical={'l'}
+          marginVertical={'sr'}
           alignSelf={'center'}
-          elevation={2}
+          elevation={5}
           justifyContent={'center'}
-          backgroundColor={'primary2'}
-          height={DeviceHelper.calculateHeightRatio(100)}
-          width={DeviceHelper.calculateWidthRatio(250)}>
+          backgroundColor={'pattensBlue'}
+          height={DeviceHelper.calculateHeightRatio(150)}
+          width={DeviceHelper.calculateWidthRatio(300)}>
           <Text
+            fontSize={20}
             fontFamily={fonts.regular}
             color={'black'}
             textAlign={'center'}>

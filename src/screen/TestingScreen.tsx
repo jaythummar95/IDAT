@@ -1,22 +1,16 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {observer} from 'mobx-react-lite';
 import {Box} from '../component/Box';
-import {Text} from '../component/Text';
-import {fonts} from '../style/Fonts';
+import {NewModuleIDAssign} from '../component/module/NewModuleIDAssign';
 import {FlatList, ScrollView} from 'react-native';
+import {Text} from '../component/Text';
+import useBLE from '../hook/useBLE';
 import {Pressable} from '../component/Pressable';
 import {DeviceHelper} from '../helper/DeviceHelper';
-import {Route, StackParamList} from '../navigation/AppNavigator';
-import {useNavigation} from '@react-navigation/native';
-import {StackNavigationProp} from '@react-navigation/stack';
-import {HomeHeader} from '../component/HomeHeader/HomeHeader';
-import useBLE from '../hook/useBLE';
+import {fonts} from '../style/Fonts';
 import {Device} from 'react-native-ble-plx';
 
-export const IdAssignmentScreen: React.FC = observer(() => {
-  const navigation = useNavigation<StackNavigationProp<StackParamList>>();
-  const {goBack} = useNavigation<StackNavigationProp<StackParamList>>();
-
+export const TestingScreen: React.FC = observer(() => {
   const {
     requestPermissions,
     scanForDevice,
@@ -33,6 +27,20 @@ export const IdAssignmentScreen: React.FC = observer(() => {
       }
     });
   };
+  const [topFive, setTopFiveList] = useState<Device[]>([]);
+  console.log('topFive', topFive);
+
+  const topfiveList = async () => {
+    setTopFiveList([]);
+    let topFiveListArray: Device[] = [];
+    allDevices.map((item, index) => {
+      console.log('topFiveindex', index);
+      if (index <= 4) {
+        topFiveListArray.push(item);
+      }
+    });
+    setTopFiveList(topFiveListArray);
+  };
 
   const startStreamData = async (device: Device) => {
     if (device) {
@@ -41,16 +49,13 @@ export const IdAssignmentScreen: React.FC = observer(() => {
       console.error('NO DEVICE CONNECTED');
     }
   };
+  useEffect(() => {
+    topfiveList();
+  }, [allDevices]);
 
   useEffect(() => {
     init();
   }, []);
-
-  const data = [
-    {name: 'Device Name-1', ip: '11:22:33:44:55:66'},
-    {name: 'Device Name-2', ip: '99:22:33:55:66:11'},
-    {name: 'Device Name-3', ip: '44:22:33:44:55:66'},
-  ];
 
   const ListEmptyComponent = () => {
     return (
@@ -113,21 +118,17 @@ export const IdAssignmentScreen: React.FC = observer(() => {
       </Box>
     );
   };
+
   return (
     <Box backgroundColor={'primary2'} flex={1}>
-      <HomeHeader
-        label={'New Modules ID Assignment'}
-        onBackPress={() => {
-          goBack();
-        }}
-      />
-      <Box alignItems={'center'} marginVertical={'r'}>
-        <Text fontFamily={fonts.bold} color={'black'} fontSize={18}>
-          New Module ID Assignment:
-        </Text>
-        <Text fontFamily={fonts.bold} color={'black'} fontSize={12}>
-          Power-up the target module
-        </Text>
+      <Box marginVertical={'r'}>
+        <NewModuleIDAssign label={'Testing of a BLE Module:'} />
+      </Box>
+      <Box marginVertical={'r'}>
+        <NewModuleIDAssign
+          label={'[Scan BMU-ID] OR [Enter BMU-ID Manually]'}
+          fontSize={true}
+        />
       </Box>
       <ScrollView showsVerticalScrollIndicator={false}>
         <Box marginBottom={'m'}>
@@ -135,25 +136,13 @@ export const IdAssignmentScreen: React.FC = observer(() => {
             Nearest Device
           </Text>
           <FlatList
-            data={allDevices.sort(
-              (a, b) => (a?.rssi as number) - (b?.rssi as number),
-            )}
+            data={topFive}
             renderItem={renderItem}
+            initialNumToRender={2}
             ListEmptyComponent={ListEmptyComponent()}
             ListFooterComponent={ListFooterComponent()}
           />
         </Box>
-
-        <Text marginHorizontal={'l'} color={'black'}>
-          Other Device
-        </Text>
-        <FlatList
-          data={data}
-          renderItem={renderItem}
-          ListEmptyComponent={ListEmptyComponent()}
-          ListFooterComponent={ListFooterComponent()}
-        />
-        <Box marginVertical={'sr'} />
       </ScrollView>
     </Box>
   );

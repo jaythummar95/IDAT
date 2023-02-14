@@ -1,16 +1,19 @@
 import React from 'react';
 import {observer} from 'mobx-react-lite';
 import {Box} from '../component/Box';
-import {Text} from '../component/Text';
 import {DashboardButton} from '../component/Dashboard/DashboardButton';
 import {Route, StackParamList} from '../navigation/AppNavigator';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
+import {HomeHeader} from '../component/HomeHeader/HomeHeader';
 
 export const DashboardScreen: React.FC = observer(() => {
   const navigation = useNavigation<StackNavigationProp<StackParamList>>();
+  // const {goBack} = useNavigation<StackNavigationProp<StackParamList>>();
+
   return (
     <Box backgroundColor={'pattensBlue'} flex={1}>
+      <HomeHeader label={'IDAT'} isMenu={true} />
       <Box
         flex={1}
         marginHorizontal={'r'}
@@ -25,7 +28,7 @@ export const DashboardScreen: React.FC = observer(() => {
         <DashboardButton
           lable={'Testing of Existing \n' + 'Module -->'}
           onPress={() => {
-            navigation.navigate(Route.Dashboard);
+            navigation.navigate(Route.Testing);
           }}
         />
         <DashboardButton
