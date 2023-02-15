@@ -6,17 +6,18 @@ import {fonts} from '../../style/Fonts';
 
 export interface NewModuleIDAssignProps {
   label: string;
-  fontSize?: boolean;
+  fontSize?: number;
+  txtColor?: boolean;
 }
-export const NewModuleIDAssign: React.FC<NewModuleIDAssignProps> = observer(
-  ({label, fontSize}: NewModuleIDAssignProps) => {
+export const NewModuleLabel: React.FC<NewModuleIDAssignProps> = observer(
+  ({label, fontSize, txtColor}: NewModuleIDAssignProps) => {
     return (
       <Box>
         <Text
           textAlign={'center'}
           fontFamily={fonts.semiBold}
-          color={'black'}
-          fontSize={fontSize ? 15 : 20}>
+          color={txtColor ? 'green' : 'black'}
+          fontSize={fontSize ?? 20}>
           {label}
         </Text>
       </Box>

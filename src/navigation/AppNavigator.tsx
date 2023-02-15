@@ -15,6 +15,8 @@ import {useTheme} from '@shopify/restyle';
 import {Theme} from '../style/Theme';
 import {ModuleAlreadyExistsScreen} from '../screen/ModuleAlreadyExistsScreen';
 import {TestingScreen} from '../screen/TestingScreen';
+import {TestingProcessFirmwareScreen} from '../screen/TestingProcessFirmwareScreen';
+import {TestCasesScreen} from '../screen/TestCasesScreen';
 
 export type StackParamList = {
   SplashScreen: undefined;
@@ -25,6 +27,8 @@ export type StackParamList = {
     ip: string;
   };
   TestingScreen: undefined;
+  TestingProcessFirmwareScreen: undefined;
+  TestCasesScreen: undefined;
 };
 const navigationRef = createNavigationContainerRef<StackParamList>();
 
@@ -54,6 +58,8 @@ export enum Route {
   IdAssignment = 'IdAssignmentScreen',
   ModuleAlreadyExists = 'ModuleAlreadyExistsScreen',
   Testing = 'TestingScreen',
+  TestingProcess = 'TestingProcessFirmwareScreen',
+  TestCases = 'TestCasesScreen',
 }
 
 export const AppNavigator: React.FC = observer(() => {
@@ -79,6 +85,11 @@ export const AppNavigator: React.FC = observer(() => {
             component={ModuleAlreadyExistsScreen}
           />
           <Stack.Screen name={Route.Testing} component={TestingScreen} />
+          <Stack.Screen
+            name={Route.TestingProcess}
+            component={TestingProcessFirmwareScreen}
+          />
+          <Stack.Screen name={Route.TestCases} component={TestCasesScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </Box>

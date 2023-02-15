@@ -9,7 +9,7 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {Text} from '../component/Text';
 import {fonts} from '../style/Fonts';
 import { Pressable } from "../component/Pressable";
-import { NewModuleIDAssign } from "../component/module/NewModuleIDAssign";
+import { NewModuleLabel } from "../component/module/NewModuleLabel";
 import { HomeHeader } from "../component/HomeHeader/HomeHeader";
 
 export const ModuleAlreadyExistsScreen: React.FC = observer(() => {
@@ -52,7 +52,7 @@ export const ModuleAlreadyExistsScreen: React.FC = observer(() => {
       </Box>
       <Box>
         <Box marginVertical={'r'}>
-        <NewModuleIDAssign label={"New Module ID Assignment:"}/>
+        <NewModuleLabel label={"New Module ID Assignment:"} fontSize={20}/>
         </Box>
       </Box>
     </Box>

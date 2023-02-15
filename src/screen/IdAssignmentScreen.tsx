@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {observer} from 'mobx-react-lite';
 import {Box} from '../component/Box';
 import {Text} from '../component/Text';
@@ -6,7 +6,7 @@ import {fonts} from '../style/Fonts';
 import {FlatList, ScrollView} from 'react-native';
 import {Pressable} from '../component/Pressable';
 import {DeviceHelper} from '../helper/DeviceHelper';
-import {Route, StackParamList} from '../navigation/AppNavigator';
+import {StackParamList} from '../navigation/AppNavigator';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {HomeHeader} from '../component/HomeHeader/HomeHeader';
@@ -16,6 +16,7 @@ import {Device} from 'react-native-ble-plx';
 export const IdAssignmentScreen: React.FC = observer(() => {
   const navigation = useNavigation<StackNavigationProp<StackParamList>>();
   const {goBack} = useNavigation<StackNavigationProp<StackParamList>>();
+  const [topFive, setTopFiveList] = useState<Device[]>([]);
 
   const {
     requestPermissions,
@@ -25,6 +26,36 @@ export const IdAssignmentScreen: React.FC = observer(() => {
     deviceConnected,
     disConnectFromDevice,
   } = useBLE();
+
+  const topfiveList = async () => {
+    setTopFiveList([]);
+    let topFiveListArray: Device[] = [];
+    allDevices
+      .sort((a, b) => (a?.rssi as number) - (b?.rssi as number))
+      .map((item, index) => {
+        if (index <= 4) {
+          topFiveListArray.push(item);
+        }
+      });
+    setTopFiveList(topFiveListArray);
+  };
+
+  const removeTopFiveList = () => {
+    const removeTopFiveLists: Device[] = [];
+    allDevices
+      .sort((a, b) => (a?.rssi as number) - (b?.rssi as number))
+      .map(allDeviceItem => {
+        const isExist =
+          topFive.findIndex(
+            topFiveItem => topFiveItem.id === allDeviceItem.id,
+          ) !== -1;
+
+        if (!isExist) {
+          removeTopFiveLists.push(allDeviceItem);
+        }
+      });
+    return removeTopFiveLists;
+  };
 
   const init = async () => {
     await requestPermissions(isGranted => {
@@ -76,11 +107,11 @@ export const IdAssignmentScreen: React.FC = observer(() => {
         <Pressable
           onPress={() => {
             // navigation.navigate(Route.ModuleAlreadyExists, {ip: item.ip});
-            if (deviceConnected?.id === item?.id) {
-              disConnectFromDevice(item);
-            } else {
-              startStreamData(item);
-            }
+            // if (deviceConnected?.id === item?.id) {
+            //   disConnectFromDevice(item);
+            // } else {
+            //   startStreamData(item);
+            // }
           }}
           borderRadius={5}
           borderColor={'pattensBlue'}
@@ -135,9 +166,8 @@ export const IdAssignmentScreen: React.FC = observer(() => {
             Nearest Device
           </Text>
           <FlatList
-            data={allDevices.sort(
-              (a, b) => (a?.rssi as number) - (b?.rssi as number),
-            )}
+            data={topFive}
+            extraData={allDevices}
             renderItem={renderItem}
             ListEmptyComponent={ListEmptyComponent()}
             ListFooterComponent={ListFooterComponent()}
@@ -148,7 +178,8 @@ export const IdAssignmentScreen: React.FC = observer(() => {
           Other Device
         </Text>
         <FlatList
-          data={data}
+          data={removeTopFiveList()}
+          extraData={allDevices}
           renderItem={renderItem}
           ListEmptyComponent={ListEmptyComponent()}
           ListFooterComponent={ListFooterComponent()}

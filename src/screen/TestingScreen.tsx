@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {observer} from 'mobx-react-lite';
 import {Box} from '../component/Box';
-import {NewModuleIDAssign} from '../component/module/NewModuleIDAssign';
+import {NewModuleLabel} from '../component/module/NewModuleLabel';
 import {FlatList, ScrollView} from 'react-native';
 import {Text} from '../component/Text';
 import useBLE from '../hook/useBLE';
@@ -9,8 +9,18 @@ import {Pressable} from '../component/Pressable';
 import {DeviceHelper} from '../helper/DeviceHelper';
 import {fonts} from '../style/Fonts';
 import {Device} from 'react-native-ble-plx';
+import {Route, StackParamList} from '../navigation/AppNavigator';
+import {useNavigation} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {HomeHeader} from '../component/HomeHeader/HomeHeader';
 
 export const TestingScreen: React.FC = observer(() => {
+  const [topFive, setTopFiveList] = useState<Device[]>([]);
+  const navigation = useNavigation<StackNavigationProp<StackParamList>>();
+  const {goBack} = useNavigation<StackNavigationProp<StackParamList>>();
+
+  // const resultArray = [{result: 'F0', declaration: 'Test Passed*'}];
+
   const {
     requestPermissions,
     scanForDevice,
@@ -27,19 +37,35 @@ export const TestingScreen: React.FC = observer(() => {
       }
     });
   };
-  const [topFive, setTopFiveList] = useState<Device[]>([]);
-  console.log('topFive', topFive);
 
   const topfiveList = async () => {
     setTopFiveList([]);
     let topFiveListArray: Device[] = [];
-    allDevices.map((item, index) => {
-      console.log('topFiveindex', index);
-      if (index <= 4) {
-        topFiveListArray.push(item);
-      }
-    });
+    allDevices
+      .sort((a, b) => (a?.rssi as number) - (b?.rssi as number))
+      .map((item, index) => {
+        if (index <= 4) {
+          topFiveListArray.push(item);
+        }
+      });
     setTopFiveList(topFiveListArray);
+  };
+
+  const removeTopFiveList = () => {
+    const removeTopFiveLists: Device[] = [];
+    allDevices
+      .sort((a, b) => (a?.rssi as number) - (b?.rssi as number))
+      .map(allDeviceItem => {
+        const isExist =
+          topFive.findIndex(
+            topFiveItem => topFiveItem.id === allDeviceItem.id,
+          ) !== -1;
+
+        if (!isExist) {
+          removeTopFiveLists.push(allDeviceItem);
+        }
+      });
+    return removeTopFiveLists;
   };
 
   const startStreamData = async (device: Device) => {
@@ -52,6 +78,8 @@ export const TestingScreen: React.FC = observer(() => {
   useEffect(() => {
     topfiveList();
   }, [allDevices]);
+
+  useEffect(() => {}, [topFive]);
 
   useEffect(() => {
     init();
@@ -80,12 +108,12 @@ export const TestingScreen: React.FC = observer(() => {
       <Box>
         <Pressable
           onPress={() => {
-            // navigation.navigate(Route.ModuleAlreadyExists, {ip: item.ip});
-            if (deviceConnected?.id === item?.id) {
-              disConnectFromDevice(item);
-            } else {
-              startStreamData(item);
-            }
+            navigation.navigate(Route.TestCases);
+            // if (deviceConnected?.id === item?.id) {
+            //   disConnectFromDevice(item);
+            // } else {
+            //   startStreamData(item);
+            // }
           }}
           borderRadius={5}
           borderColor={'pattensBlue'}
@@ -121,13 +149,14 @@ export const TestingScreen: React.FC = observer(() => {
 
   return (
     <Box backgroundColor={'primary2'} flex={1}>
+      <HomeHeader label={'Testing Of BLE Module'} onBackPress={goBack} />
       <Box marginVertical={'r'}>
-        <NewModuleIDAssign label={'Testing of a BLE Module:'} />
+        <NewModuleLabel label={'Testing of a BLE Module:'} fontSize={20} />
       </Box>
       <Box marginVertical={'r'}>
-        <NewModuleIDAssign
+        <NewModuleLabel
           label={'[Scan BMU-ID] OR [Enter BMU-ID Manually]'}
-          fontSize={true}
+          fontSize={18}
         />
       </Box>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -135,8 +164,21 @@ export const TestingScreen: React.FC = observer(() => {
           <Text marginHorizontal={'l'} color={'black'} marginTop={'s'}>
             Nearest Device
           </Text>
+
           <FlatList
             data={topFive}
+            extraData={allDevices}
+            renderItem={renderItem}
+            initialNumToRender={2}
+            ListEmptyComponent={ListEmptyComponent()}
+            ListFooterComponent={ListFooterComponent()}
+          />
+          <Text marginHorizontal={'l'} color={'black'} marginTop={'s'}>
+            Other Device
+          </Text>
+          <FlatList
+            data={removeTopFiveList()}
+            extraData={allDevices}
             renderItem={renderItem}
             initialNumToRender={2}
             ListEmptyComponent={ListEmptyComponent()}
