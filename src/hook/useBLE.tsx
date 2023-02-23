@@ -11,11 +11,25 @@ type PermissionCallback = (result: boolean) => void;
 
 const bleManager = new BleManager();
 
+export enum TYPE_OF_WRITE_CHAR {
+  WROTE_WITHOUT_RESPONSE = 'WROTE_WITHOUT_RESPONSE',
+}
+
 interface BluetoothLowEnergyApi {
   requestPermissions(callBack: PermissionCallback): Promise<void>;
   scanForDevice(): void;
-  connectToDevice(device: Device): Promise<void>;
+  connectToDevice(
+    device: Device,
+    callBack: (device: Device) => void,
+  ): Promise<void>;
   disConnectFromDevice(device: Device): Promise<void>;
+  discoverServicesAndWriteCharacter(
+    device: Device,
+    characteristicUuid: string,
+    commandHexString: string,
+    secret: string,
+    type: TYPE_OF_WRITE_CHAR,
+  ): Promise<void>;
   allDevices: Device[];
   deviceConnected: Device | null;
 }
@@ -84,7 +98,10 @@ export default function useBLE(): BluetoothLowEnergyApi {
     }, 3000);
   };
 
-  const connectToDevice = async (device: Device) => {
+  const connectToDevice = async (
+    device: Device,
+    callBack: (device: Device) => void,
+  ) => {
     try {
       const deviceConnection = await bleManager.connectToDevice(device.id, {
         requestMTU: 256,
@@ -94,38 +111,7 @@ export default function useBLE(): BluetoothLowEnergyApi {
       bleManager
         .discoverAllServicesAndCharacteristicsForDevice(device.id)
         .then(deviceResponse => {
-          deviceResponse.services().then(services => {
-            services?.map(service => {
-              // console.log('SERVICE: ', service.id);
-              // console.log('\n');
-              // console.log('CHARACTERISTICS');
-              // console.log('\n');
-              service.characteristics().then(characteristics => {
-                // console.log(JSON.stringify(characteristics, '', 4));
-                const charWriteWithoutResponse = characteristics.find(
-                  characteristicItem =>
-                    characteristicItem.uuid ===
-                    '5a87b4ef-3bfa-76a8-e642-92933c31434f',
-                );
-
-                if (charWriteWithoutResponse) {
-                  setTimeout(() => {
-                    writeChar(
-                      '8912485569AEBCAB55FFFFFFFFFFFFFFFF0001020304050169',
-                      'FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF',
-                      deviceResponse?.id?.toString(),
-                      charWriteWithoutResponse.serviceUUID,
-                      charWriteWithoutResponse.uuid,
-                    );
-                  }, 1000);
-                }
-              });
-              console.log('\n');
-              console.log('\n');
-              console.log('\n');
-            });
-            console.log('DeviceConnected', deviceConnection.isConnected());
-          });
+          callBack(deviceResponse);
         });
     } catch (error) {
       console.log(error);
@@ -231,12 +217,48 @@ export default function useBLE(): BluetoothLowEnergyApi {
     return null;
   };
 
+  const discoverServicesAndWriteCharacter = async (
+    device: Device,
+    characteristicUuid: string,
+    commandHexString: string,
+    secret: string,
+    type: TYPE_OF_WRITE_CHAR,
+  ) => {
+    if (!(await device.isConnected())) {
+      return;
+    }
+    device.services().then(services => {
+      services?.map(service => {
+        service.characteristics().then(characteristics => {
+          const characteristicsObj = characteristics.find(
+            characteristicItem =>
+              characteristicItem.uuid === characteristicUuid,
+          );
+
+          if (characteristicsObj) {
+            setTimeout(() => {
+              writeChar(
+                commandHexString,
+                secret,
+                device?.id?.toString(),
+                characteristicsObj.serviceUUID,
+                characteristicsObj.uuid,
+                type,
+              );
+            }, 1000);
+          }
+        });
+      });
+    });
+  };
+
   const writeChar = async (
     hexString: string,
     secret: string,
     deviceId: string,
     serviceUUID: string,
     characteristicUUID: string,
+    type: TYPE_OF_WRITE_CHAR,
   ) => {
     const byteArrayOfChar: Uint8Array = hexToByteArray(hexString);
     const byteArrayOfAesKey: Uint8Array = hexToByteArray(secret);
@@ -244,61 +266,53 @@ export default function useBLE(): BluetoothLowEnergyApi {
 
     const split = encryptedString!!.length / 32;
 
-    console.log('byteArrayOfChar', byteArrayOfChar);
-    console.log('byteArrayOfAesKey', byteArrayOfAesKey);
-    console.log('encrypTedString', encryptedString);
-    console.log('split', split);
-
     let concatValue: Uint8Array = new Uint8Array();
     if (split === 4) {
       const hex1 = hexToByteArray(encryptedString!!.slice(0, 32).toString());
       const hex2 = hexToByteArray(encryptedString!!.slice(32, 64).toString());
       const hex3 = hexToByteArray(encryptedString!!.slice(64, 96).toString());
       concatValue = concat(hex1, hex2, hex3);
-      console.log('CONCAT_VALUE', concatValue);
     } else if (split === 3) {
       const hex1 = hexToByteArray(encryptedString!!.slice(0, 32).toString());
       const hex2 = hexToByteArray(encryptedString!!.slice(32, 64).toString());
       const hex3 = hexToByteArray(encryptedString!!.slice(64, 96).toString());
       concatValue = concat(hex1, hex2, hex3);
-      console.log('CONCAT_VALUE', concatValue);
     } else if (split === 2) {
       const hex1 = hexToByteArray(encryptedString!!.slice(0, 32).toString());
       const hex2 = hexToByteArray(encryptedString!!.slice(32, 64).toString());
       concatValue = concat(hex1, hex2);
-      console.log('CONCAT_VALUE', concatValue);
     } else if (split === 1) {
       const hex1 = hexToByteArray(encryptedString!!.slice(0, 32).toString());
       concatValue = concat(hex1);
-      console.log('CONCAT_VALUE', concatValue);
     }
 
     const base64Value = Buffer.from(concatValue).toString('base64');
-
-    console.log('BASE_64', base64Value);
-
     bleManager.monitorCharacteristicForDevice(
       deviceId,
       serviceUUID,
       characteristicUUID,
       listener => {
-        console.log('LISTENER', JSON.stringify(listener, '', 4));
+        console.log('LISTENER', JSON.stringify(listener, undefined, 4));
       },
     );
 
-    bleManager
-      .writeCharacteristicWithoutResponseForDevice(
-        deviceId,
-        serviceUUID,
-        characteristicUUID,
-        base64Value,
-      )
-      .then(response => {
-        console.log('DEVICE==>', response);
-      })
-      .catch(error => {
-        console.log(JSON.stringify(error, "", 4));
-      });
+    switch (type) {
+      case TYPE_OF_WRITE_CHAR.WROTE_WITHOUT_RESPONSE:
+        bleManager
+          .writeCharacteristicWithoutResponseForDevice(
+            deviceId,
+            serviceUUID,
+            characteristicUUID,
+            base64Value,
+          )
+          .then(response => {
+            console.log('DEVICE==>', response);
+          })
+          .catch(error => {
+            console.log(JSON.stringify(error, undefined, 4));
+          });
+        break;
+    }
   };
 
   return {
@@ -306,6 +320,7 @@ export default function useBLE(): BluetoothLowEnergyApi {
     scanForDevice,
     connectToDevice,
     disConnectFromDevice,
+    discoverServicesAndWriteCharacter,
     allDevices,
     deviceConnected,
   };

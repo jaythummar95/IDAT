@@ -14,7 +14,6 @@ import useBLE from '../hook/useBLE';
 import {Device} from 'react-native-ble-plx';
 
 export const IdAssignmentScreen: React.FC = observer(() => {
-  const navigation = useNavigation<StackNavigationProp<StackParamList>>();
   const {goBack} = useNavigation<StackNavigationProp<StackParamList>>();
   const [topFive, setTopFiveList] = useState<Device[]>([]);
 
@@ -26,19 +25,6 @@ export const IdAssignmentScreen: React.FC = observer(() => {
     deviceConnected,
     disConnectFromDevice,
   } = useBLE();
-
-  const topfiveList = async () => {
-    setTopFiveList([]);
-    let topFiveListArray: Device[] = [];
-    allDevices
-      .sort((a, b) => (a?.rssi as number) - (b?.rssi as number))
-      .map((item, index) => {
-        if (index <= 4) {
-          topFiveListArray.push(item);
-        }
-      });
-    setTopFiveList(topFiveListArray);
-  };
 
   const removeTopFiveList = () => {
     const removeTopFiveLists: Device[] = [];
@@ -65,23 +51,9 @@ export const IdAssignmentScreen: React.FC = observer(() => {
     });
   };
 
-  const startStreamData = async (device: Device) => {
-    if (device) {
-      connectToDevice(device);
-    } else {
-      console.error('NO DEVICE CONNECTED');
-    }
-  };
-
   useEffect(() => {
     init();
   }, []);
-
-  const data = [
-    {name: 'Device Name-1', ip: '11:22:33:44:55:66'},
-    {name: 'Device Name-2', ip: '99:22:33:55:66:11'},
-    {name: 'Device Name-3', ip: '44:22:33:44:55:66'},
-  ];
 
   const ListEmptyComponent = () => {
     return (

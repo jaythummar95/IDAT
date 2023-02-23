@@ -19,16 +19,7 @@ export const TestingScreen: React.FC = observer(() => {
   const navigation = useNavigation<StackNavigationProp<StackParamList>>();
   const {goBack} = useNavigation<StackNavigationProp<StackParamList>>();
 
-  // const resultArray = [{result: 'F0', declaration: 'Test Passed*'}];
-
-  const {
-    requestPermissions,
-    scanForDevice,
-    connectToDevice,
-    allDevices,
-    deviceConnected,
-    disConnectFromDevice,
-  } = useBLE();
+  const {requestPermissions, scanForDevice, allDevices} = useBLE();
 
   const init = async () => {
     await requestPermissions(isGranted => {
@@ -68,13 +59,6 @@ export const TestingScreen: React.FC = observer(() => {
     return removeTopFiveLists;
   };
 
-  const startStreamData = async (device: Device) => {
-    if (device) {
-      connectToDevice(device);
-    } else {
-      console.error('NO DEVICE CONNECTED');
-    }
-  };
   useEffect(() => {
     topfiveList();
   }, [allDevices]);
@@ -103,17 +87,12 @@ export const TestingScreen: React.FC = observer(() => {
       </Box>
     );
   };
-  const renderItem = ({item}) => {
+  const renderItem = (item: Device) => {
     return (
       <Box>
         <Pressable
           onPress={() => {
             navigation.navigate(Route.TestCases);
-            // if (deviceConnected?.id === item?.id) {
-            //   disConnectFromDevice(item);
-            // } else {
-            //   startStreamData(item);
-            // }
           }}
           borderRadius={5}
           borderColor={'pattensBlue'}
@@ -168,7 +147,7 @@ export const TestingScreen: React.FC = observer(() => {
           <FlatList
             data={topFive}
             extraData={allDevices}
-            renderItem={renderItem}
+            renderItem={({item}) => renderItem(item)}
             initialNumToRender={2}
             ListEmptyComponent={ListEmptyComponent()}
             ListFooterComponent={ListFooterComponent()}
@@ -179,7 +158,7 @@ export const TestingScreen: React.FC = observer(() => {
           <FlatList
             data={removeTopFiveList()}
             extraData={allDevices}
-            renderItem={renderItem}
+            renderItem={({item}) => renderItem(item)}
             initialNumToRender={2}
             ListEmptyComponent={ListEmptyComponent()}
             ListFooterComponent={ListFooterComponent()}
