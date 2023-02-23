@@ -8,23 +8,21 @@
  * @format
  */
 
-import {
-  backgroundColor,
-  color,
-  ThemeProvider,
-  useTheme,
-} from '@shopify/restyle';
+import {ThemeProvider} from '@shopify/restyle';
 import React from 'react';
 import theme from './src/style/Theme';
 import {AppNavigator} from './src/navigation/AppNavigator';
-import { SafeAreaView, StatusBar } from "react-native";
-import {Theme} from '@react-navigation/native';
+import {SafeAreaView, StatusBar} from 'react-native';
+import {NoBlueTootEnabledFullScreen} from './src/component/NoBlueTootEnabledFullScreenProps';
 
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <SafeAreaView style={{flex: 1}}>
-        <AppNavigator />
+        <StatusBar backgroundColor={'#6B61DD'} />
+        <NoBlueTootEnabledFullScreen onTryAgain={() => {}}>
+          <AppNavigator />
+        </NoBlueTootEnabledFullScreen>
       </SafeAreaView>
     </ThemeProvider>
   );
