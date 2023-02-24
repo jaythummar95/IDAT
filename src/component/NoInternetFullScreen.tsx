@@ -92,7 +92,11 @@ export const NoInternetFullScreen: React.FC<NoInternetFullScreenProps> = ({
         width="100%"
         justifyContent="center"
         alignItems="center">
-        <Image width={DeviceHelper.width()} source={Images.no_net} />
+        <Image
+          width={DeviceHelper.width() / 1.5}
+          height={DeviceHelper.width() / 1.5}
+          source={Images.no_net}
+        />
         <Text
           marginTop="el"
           fontFamily={fonts.regular}
