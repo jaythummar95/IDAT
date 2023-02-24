@@ -5,4 +5,5 @@ export const Images = {
   leftArrowW: require('./pngs/leftArrowW.png'),
   menu: require('./pngs/menu.png'),
   bluetooth: require('./pngs/bluetooth.png'),
+  no_net: require('./pngs/no_net.png'),
 };
