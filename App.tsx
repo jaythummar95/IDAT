@@ -19,6 +19,8 @@ import {DeviceHelper} from './src/helper/DeviceHelper';
 import {NoInternetFullScreen} from './src/component/NoInternetFullScreen';
 import {initHttpClient} from './src/core/Http';
 import {BASE_URL} from './src/api/EndPoint';
+import FlashMessage from "react-native-flash-message";
+import { FullScreenProgress, refFullScreenProgress } from "./src/component/FullScreenProgress";
 
 const App = () => {
   const [blueToothEnabled, setBlueToothEanbaled] = useState(false);
@@ -51,6 +53,8 @@ const App = () => {
         <NoBlueTootEnabledFullScreen onTryAgain={() => {}}>
           <NoInternetFullScreen onTryAgain={() => {}}>
             {blueToothEnabled && <AppNavigator />}
+            <FlashMessage />
+            <FullScreenProgress ref={refFullScreenProgress} />
           </NoInternetFullScreen>
         </NoBlueTootEnabledFullScreen>
       </SafeAreaView>

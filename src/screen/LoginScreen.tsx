@@ -10,13 +10,16 @@ import {Image} from '../component/Image';
 import {DeviceHelper} from '../helper/DeviceHelper';
 import {Images} from '../assets';
 import {authFactory} from '../factory/AuthFactory';
+import { hideFullScreenProgress, showFullScreenProgress } from "../component/FullScreenProgress";
 
 export const LoginScreen: React.FC = observer(() => {
   const [secretKey, setSecretKey] = useState('');
   const navigation = useNavigation<StackNavigationProp<StackParamList>>();
 
   const authenticateUser = () => {
+    showFullScreenProgress();
     authFactory.loginApi(secretKey).then(() => {
+      hideFullScreenProgress();
       navigation.navigate(Route.Dashboard);
     });
   };
