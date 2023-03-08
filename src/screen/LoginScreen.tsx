@@ -9,11 +9,17 @@ import {Button} from '../component/Button';
 import {Image} from '../component/Image';
 import {DeviceHelper} from '../helper/DeviceHelper';
 import {Images} from '../assets';
+import {authFactory} from '../factory/AuthFactory';
 
 export const LoginScreen: React.FC = observer(() => {
-  const {goBack} = useNavigation<StackNavigationProp<StackParamList>>();
   const [secretKey, setSecretKey] = useState('');
   const navigation = useNavigation<StackNavigationProp<StackParamList>>();
+
+  const authenticateUser = () => {
+    authFactory.loginApi(secretKey).then(() => {
+      navigation.navigate(Route.Dashboard);
+    });
+  };
 
   return (
     <Box backgroundColor={'pattensBlue'} flex={1}>
@@ -38,12 +44,11 @@ export const LoginScreen: React.FC = observer(() => {
           <Button
             label={'Login to IDAT'}
             onPress={() => {
-              navigation.navigate(Route.Dashboard);
+              authenticateUser();
             }}
             isLight={false}
           />
         </Box>
-
       </Box>
     </Box>
   );
