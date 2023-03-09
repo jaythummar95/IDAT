@@ -1,7 +1,6 @@
 import React from 'react';
 import {observer} from 'mobx-react-lite';
 import {Box} from './Box';
-import {Text} from './Text';
 import {Pressable} from './Pressable';
 import {Image} from './Image';
 import {Images} from '../assets';
@@ -16,6 +15,7 @@ export const Header: React.FC<HeaderProps> = observer(({onBackPress}) => {
       backgroundColor={'gray'}
       flexDirection={'row'}
       alignItems={'center'}
+      elevation={4}
       height={DeviceHelper.calculateHeightRatio(70)}>
       <Pressable
         onPress={onBackPress}

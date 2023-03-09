@@ -25,7 +25,10 @@ export const HomeHeader: React.FC<HomeHeaderProps> = observer(
         backgroundColor={'primary'}
         elevation={4}
         shadowColor={'gray'}
+        shadowOffset={{width: 0, height: 2}}
         justifyContent={'center'}
+        shadowOpacity={0.5}
+        shadowRadius={2}
         width={DeviceHelper.width()}
         height={DeviceHelper.calculateHeightRatio(70)}>
         <Box marginHorizontal={'s'} flexDirection={'row'} flex={1}>

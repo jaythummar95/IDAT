@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {observer} from 'mobx-react-lite';
 import {Box} from '../component/Box';
-import {NewModuleLabel} from '../component/module/NewModuleLabel';
+import {NewModuleLabel} from '../component/NewModuleAssignment/NewModuleLabel';
 import {FlatList, ScrollView} from 'react-native';
 import {Text} from '../component/Text';
 import useBLE from '../hook/useBLE';

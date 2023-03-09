@@ -4,8 +4,9 @@ import {Box} from '../Box';
 import {Text} from '../Text';
 import {fonts} from '../../style/Fonts';
 import {DeviceHelper} from '../../helper/DeviceHelper';
+import {Button} from '../Button';
 
-export interface MuduleAlreadyExistsProps {
+export interface ModuleAlreadyExistsProps {
   label: string;
   labelModuleDetails: string;
   labelBleMsc: string;
@@ -16,8 +17,9 @@ export interface MuduleAlreadyExistsProps {
   roomNo: string;
   hotelName: string;
   hotelAddress: string;
+  onPressGotIt: () => void;
 }
-export const MuduleAlreadyExists: React.FC<MuduleAlreadyExistsProps> = observer(
+export const ModuleAlreadyExists: React.FC<ModuleAlreadyExistsProps> = observer(
   ({
     label,
     labelModuleDetails,
@@ -29,18 +31,19 @@ export const MuduleAlreadyExists: React.FC<MuduleAlreadyExistsProps> = observer(
     roomNo,
     hotelName,
     hotelAddress,
-  }: MuduleAlreadyExistsProps) => {
+    onPressGotIt,
+  }: ModuleAlreadyExistsProps) => {
     const TextView = (txtLabel: string) => {
       return (
         <Box marginHorizontal={'sr'} marginVertical={'es'}>
-          <Text fontFamily={fonts.bold} color={'black'} fontSize={16}>
+          <Text fontFamily={fonts.medium} color={'black'} fontSize={14}>
             {txtLabel}
           </Text>
         </Box>
       );
     };
     return (
-      <Box>
+      <Box marginVertical={'l'}>
         <Text
           textAlign={'center'}
           fontFamily={fonts.semiBold}
@@ -50,7 +53,7 @@ export const MuduleAlreadyExists: React.FC<MuduleAlreadyExistsProps> = observer(
         </Text>
         <Box
           marginHorizontal={'l'}
-          marginTop={'ls'}
+          marginTop={'m'}
           backgroundColor={'primary2'}
           borderWidth={1}
           borderRadius={8}
@@ -67,7 +70,7 @@ export const MuduleAlreadyExists: React.FC<MuduleAlreadyExistsProps> = observer(
 
         <Box
           marginHorizontal={'l'}
-          marginTop={'ls'}
+          marginTop={'r'}
           backgroundColor={'primary2'}
           borderWidth={1}
           borderRadius={8}
@@ -79,6 +82,18 @@ export const MuduleAlreadyExists: React.FC<MuduleAlreadyExistsProps> = observer(
           {TextView(roomNo)}
           {TextView(hotelName)}
           {TextView(hotelAddress)}
+        </Box>
+        <Box
+          marginTop={'sr'}
+          alignSelf={'center'}
+          marginVertical={'r'}
+          paddingHorizontal={'l'}
+          width={'100%'}>
+          <Button
+            label={'Okay, Got It'}
+            onPress={onPressGotIt}
+            isLight={false}
+          />
         </Box>
       </Box>
     );

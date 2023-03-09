@@ -12,7 +12,7 @@ export interface NewModuleIDAssignProps {
 export const NewModuleLabel: React.FC<NewModuleIDAssignProps> = observer(
   ({label, fontSize, txtColor}: NewModuleIDAssignProps) => {
     return (
-      <Box>
+      <Box flex={1}>
         <Text
           textAlign={'center'}
           fontFamily={fonts.semiBold}

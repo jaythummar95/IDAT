@@ -3,7 +3,7 @@ import {observer} from 'mobx-react-lite';
 import {Box} from '../Box';
 import {Text} from '../Text';
 import {fonts} from '../../style/Fonts';
-import {NewModuleLabel} from '../module/NewModuleLabel';
+import {NewModuleLabel} from '../NewModuleAssignment/NewModuleLabel';
 
 export interface TestingResultProps {
   resultLabel: string;

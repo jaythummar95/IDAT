@@ -17,6 +17,7 @@ import {ModuleAlreadyExistsScreen} from '../screen/ModuleAlreadyExistsScreen';
 import {TestingScreen} from '../screen/TestingScreen';
 import {TestingProcessFirmwareScreen} from '../screen/TestingProcessFirmwareScreen';
 import {TestCasesScreen} from '../screen/TestCasesScreen';
+import {NewModuleAssignmentScreen} from '../screen/NewModuleAssignmentScreen';
 
 export type StackParamList = {
   SplashScreen: undefined;
@@ -29,6 +30,7 @@ export type StackParamList = {
   TestingScreen: undefined;
   TestingProcessFirmwareScreen: undefined;
   TestCasesScreen: undefined;
+  NewModuleAssignmentScreen: undefined;
 };
 const navigationRef = createNavigationContainerRef<StackParamList>();
 
@@ -60,6 +62,7 @@ export enum Route {
   Testing = 'TestingScreen',
   TestingProcess = 'TestingProcessFirmwareScreen',
   TestCases = 'TestCasesScreen',
+  NewModuleAssignment = 'NewModuleAssignmentScreen',
 }
 
 export const AppNavigator: React.FC = observer(() => {
@@ -72,7 +75,7 @@ export const AppNavigator: React.FC = observer(() => {
           screenOptions={{
             headerShown: false,
           }}
-          initialRouteName={Route.Splash}>
+          initialRouteName={Route.NewModuleAssignment}>
           <Stack.Screen name={Route.Splash} component={SplashScreen} />
           <Stack.Screen name={Route.Login} component={LoginScreen} />
           <Stack.Screen name={Route.Dashboard} component={DashboardScreen} />
@@ -90,6 +93,10 @@ export const AppNavigator: React.FC = observer(() => {
             component={TestingProcessFirmwareScreen}
           />
           <Stack.Screen name={Route.TestCases} component={TestCasesScreen} />
+          <Stack.Screen
+            name={Route.NewModuleAssignment}
+            component={NewModuleAssignmentScreen}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </Box>

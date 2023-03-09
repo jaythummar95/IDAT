@@ -2,7 +2,7 @@ import React from 'react';
 import {observer} from 'mobx-react-lite';
 import {Box} from '../component/Box';
 import {HomeHeader} from '../component/HomeHeader/HomeHeader';
-import {NewModuleLabel} from '../component/module/NewModuleLabel';
+import {NewModuleLabel} from '../component/NewModuleAssignment/NewModuleLabel';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {StackParamList} from '../navigation/AppNavigator';
