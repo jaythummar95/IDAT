@@ -22,7 +22,7 @@ export const DashboardScreen: React.FC = observer(() => {
         <DashboardButton
           lable={'New Module ID\n' + 'Assignment -->'}
           onPress={() => {
-            navigation.navigate(Route.IdAssignment);
+            navigation.navigate(Route.NewModuleAssignment);
           }}
         />
         <DashboardButton

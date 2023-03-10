@@ -78,7 +78,7 @@ export const AppNavigator: React.FC = observer(() => {
           screenOptions={{
             headerShown: false,
           }}
-          initialRouteName={Route.NewModuleAssignment}>
+          initialRouteName={Route.Splash}>
           <Stack.Screen name={Route.Splash} component={SplashScreen} />
           <Stack.Screen name={Route.Login} component={LoginScreen} />
           <Stack.Screen name={Route.Dashboard} component={DashboardScreen} />
