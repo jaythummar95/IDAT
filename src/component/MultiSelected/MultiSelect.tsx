@@ -243,8 +243,8 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
             marginEnd={'r'}
             marginStart={'sr'}
             alignSelf={'center'}
-            height={DeviceHelper.calculateHeightRatio(15)}
-            width={DeviceHelper.calculateWidthRatio(15)}
+            height={DeviceHelper.calculateHeightRatio(10)}
+            width={DeviceHelper.calculateWidthRatio(20)}
           />
         </Box>
       </Pressable>
@@ -279,6 +279,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
               justifyContent={'center'}
               borderRadius={25}>
               <Image
+                resizeMode={'center'}
                 height={DeviceHelper.calculateHeightRatio(15)}
                 width={DeviceHelper.calculateWidthRatio(15)}
                 alignSelf={'center'}
