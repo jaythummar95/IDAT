@@ -14,7 +14,6 @@ import {HomeHeader} from '../component/HomeHeader/HomeHeader';
 export const ModuleAlreadyExistsScreen: React.FC = observer(() => {
   const route =
     useRoute<RouteProp<StackParamList, 'ModuleAlreadyExistsScreen'>>();
-  const navigation = useNavigation<StackNavigationProp<StackParamList>>();
   const {goBack} = useNavigation<StackNavigationProp<StackParamList>>();
 
   const {ip} = route.params;
@@ -39,6 +38,7 @@ export const ModuleAlreadyExistsScreen: React.FC = observer(() => {
             roomNo={'Installed At: Room No. 103 or Swimming Pool'}
             hotelName={'Biltmore Mayfair LXR Resorts '}
             hotelAddress={'address'}
+            onPressGotIt={() => {}}
           />
         </Box>
         <Box marginHorizontal={'r'} alignItems={'center'} marginTop={'m'}>

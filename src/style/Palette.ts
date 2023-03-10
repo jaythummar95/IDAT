@@ -1,5 +1,6 @@
 export const palette = {
   primary: '#6B61DD',
+  primaryWithOpacity: 'rgba(107,97,221,0.58)',
   primary2: '#ffffff',
   fontColorPrimaryBg: '#000000',
   background: '#F7F8FC',

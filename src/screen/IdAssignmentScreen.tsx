@@ -17,14 +17,7 @@ export const IdAssignmentScreen: React.FC = observer(() => {
   const {goBack} = useNavigation<StackNavigationProp<StackParamList>>();
   const [topFive, setTopFiveList] = useState<Device[]>([]);
 
-  const {
-    requestPermissions,
-    scanForDevice,
-    connectToDevice,
-    allDevices,
-    deviceConnected,
-    disConnectFromDevice,
-  } = useBLE();
+  const {requestPermissions, scanForDevice, allDevices} = useBLE();
 
   const removeTopFiveList = () => {
     const removeTopFiveLists: Device[] = [];

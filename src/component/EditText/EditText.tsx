@@ -6,7 +6,7 @@ import {fonts} from '../../style/Fonts';
 import {Input} from '../Input';
 
 export interface EditTextProps {
-  textLabel: string;
+  textLabel?: string;
   value: string;
   placeholder: string;
   onChangeValue: (text: string) => void;
@@ -18,14 +18,16 @@ export const EditText: React.FC<EditTextProps> = observer(
   ({textLabel, value, onChangeValue, placeholder}: EditTextProps) => {
     return (
       <Box>
-        <Text
-          marginVertical={'r'}
-          marginTop={'r'}
-          fontFamily={fonts.regular}
-          color={'black'}
-          fontSize={17}>
-          {textLabel}
-        </Text>
+        {textLabel && (
+          <Text
+            marginVertical={'r'}
+            marginTop={'r'}
+            fontFamily={fonts.regular}
+            color={'black'}
+            fontSize={17}>
+            {textLabel}
+          </Text>
+        )}
         <Box>
           <Input
             isBottomMargin={false}

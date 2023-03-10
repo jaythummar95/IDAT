@@ -115,7 +115,7 @@ export const Input: React.FC<Input> = (props: Input) => {
           onTouchEnd={onPress}
           maxLength={maxLength}
           style={{
-            fontFamily: fonts.poppinsRegular,
+            fontFamily: fonts.regular,
             fontSize: 16,
             flex: 1,
             height: '100%',

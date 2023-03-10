@@ -13,8 +13,8 @@ import {AssignNewModule} from '../component/NewModuleAssignment/AssignNewModule'
 
 export const NewModuleAssignmentScreen: React.FC = () => {
   const {goBack} = useNavigation<StackNavigationProp<StackParamList>>();
-  const [isDevicePowerOn, setIsDevicePowerOn] = useState(false);
-  const [isDeviceScanned, setIsDeviceScanned] = useState(false);
+  const [isDevicePowerOn, setIsDevicePowerOn] = useState(true);
+  const [isDeviceScanned, setIsDeviceScanned] = useState(true);
   const [isModuleAlreadyExist, setIsModuleAlreadyExist] = useState(false);
 
   const checkIsModuleAlreadyExists = (device: Device) => {
