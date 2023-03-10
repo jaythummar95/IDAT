@@ -101,10 +101,7 @@ export const Input: React.FC<Input> = (props: Input) => {
         backgroundColor={'white'}
         height={DeviceHelper.calculateHeightRatio(isHeight ? height : 55)}>
         {isIcon ? null : (
-          <Text
-            fontSize={16}
-            fontFamily={fonts.poppinsSemiBold}
-            color={'black'}>
+          <Text fontSize={16} fontFamily={fonts.semiBold} color={'black'}>
             {'+91'}
           </Text>
         )}
@@ -134,7 +131,7 @@ export const Input: React.FC<Input> = (props: Input) => {
         />
         {onPress && (
           <Image
-            source={Images.downArrow}
+            source={Images.down_arrow}
             width={DeviceHelper.calculateWidthRatio(10.83)}
             height={DeviceHelper.calculateWidthRatio(10.66)}
           />
@@ -147,7 +144,7 @@ export const Input: React.FC<Input> = (props: Input) => {
           borderColor={hasError ? 'red' : 'border'}>
           <Text
             fontSize={12}
-            fontFamily={fonts.poppinsBold}
+            fontFamily={fonts.bold}
             color={'white'}
             marginStart={'es'}>
             {countryName}

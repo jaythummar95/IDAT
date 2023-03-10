@@ -6,4 +6,10 @@ export const Images = {
   menu: require('./pngs/menu.png'),
   bluetooth: require('./pngs/bluetooth.png'),
   no_net: require('./pngs/no_net.png'),
+  down_arrow: require('./pngs/down_arrow.png'),
+  closeBlack: require('./pngs/closeBlack.png'),
+  downArrowBlack: require('./pngs/DownArrowBlack.png'),
+  close: require('./pngs/Close.png'),
+  search: require('./pngs/Search.png'),
+  add: require('./pngs/add.png'),
 };
