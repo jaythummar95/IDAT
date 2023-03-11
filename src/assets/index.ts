@@ -12,4 +12,5 @@ export const Images = {
   close: require('./pngs/Close.png'),
   search: require('./pngs/Search.png'),
   add: require('./pngs/add.png'),
+  splash_logo: require('./pngs/splash_logo.png'),
 };

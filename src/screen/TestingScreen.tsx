@@ -1,18 +1,19 @@
-import React, {useEffect, useState} from 'react';
-import {observer} from 'mobx-react-lite';
-import {Box} from '../component/Box';
-import {NewModuleLabel} from '../component/NewModuleAssignment/NewModuleLabel';
-import {FlatList, ScrollView} from 'react-native';
-import {Text} from '../component/Text';
-import useBLE from '../hook/useBLE';
-import {Pressable} from '../component/Pressable';
-import {DeviceHelper} from '../helper/DeviceHelper';
-import {fonts} from '../style/Fonts';
-import {Device} from 'react-native-ble-plx';
-import {Route, StackParamList} from '../navigation/AppNavigator';
-import {useNavigation} from '@react-navigation/native';
-import {StackNavigationProp} from '@react-navigation/stack';
-import {HomeHeader} from '../component/HomeHeader/HomeHeader';
+import React, { useEffect, useState } from "react";
+import { observer } from "mobx-react-lite";
+import { Box } from "../component/Box";
+import { NewModuleLabel } from "../component/NewModuleAssignment/NewModuleLabel";
+import { FlatList, ScrollView } from "react-native";
+import { Text } from "../component/Text";
+import useBLE from "../hook/useBLE";
+import { Pressable } from "../component/Pressable";
+import { DeviceHelper } from "../helper/DeviceHelper";
+import { fonts } from "../style/Fonts";
+import { Device } from "react-native-ble-plx";
+import { Route, StackParamList } from "../navigation/AppNavigator";
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { HomeHeader } from "../component/HomeHeader/HomeHeader";
+import { Screen, StatusBarType } from "../component/Screen";
 
 export const TestingScreen: React.FC = observer(() => {
   const [topFive, setTopFiveList] = useState<Device[]>([]);
@@ -127,44 +128,46 @@ export const TestingScreen: React.FC = observer(() => {
   };
 
   return (
-    <Box backgroundColor={'primary2'} flex={1}>
-      <HomeHeader label={'Testing Of BLE Module'} onBackPress={goBack} />
-      <Box marginVertical={'r'}>
-        <NewModuleLabel label={'Testing of a BLE Module:'} fontSize={20} />
-      </Box>
-      <Box marginVertical={'r'}>
-        <NewModuleLabel
-          label={'[Scan BMU-ID] OR [Enter BMU-ID Manually]'}
-          fontSize={18}
-        />
-      </Box>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <Box marginBottom={'m'}>
-          <Text marginHorizontal={'l'} color={'black'} marginTop={'s'}>
-            Nearest Device
-          </Text>
-
-          <FlatList
-            data={topFive}
-            extraData={allDevices}
-            renderItem={({item}) => renderItem(item)}
-            initialNumToRender={2}
-            ListEmptyComponent={ListEmptyComponent()}
-            ListFooterComponent={ListFooterComponent()}
-          />
-          <Text marginHorizontal={'l'} color={'black'} marginTop={'s'}>
-            Other Device
-          </Text>
-          <FlatList
-            data={removeTopFiveList()}
-            extraData={allDevices}
-            renderItem={({item}) => renderItem(item)}
-            initialNumToRender={2}
-            ListEmptyComponent={ListEmptyComponent()}
-            ListFooterComponent={ListFooterComponent()}
+    <Screen statusBarType={StatusBarType.Dark}>
+      <Box backgroundColor={'primary2'} flex={1}>
+        <HomeHeader label={'Testing Of BLE Module'} onBackPress={goBack} />
+        <Box marginVertical={'r'}>
+          <NewModuleLabel label={'Testing of a BLE Module:'} fontSize={20} />
+        </Box>
+        <Box marginVertical={'r'}>
+          <NewModuleLabel
+            label={'[Scan BMU-ID] OR [Enter BMU-ID Manually]'}
+            fontSize={18}
           />
         </Box>
-      </ScrollView>
-    </Box>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <Box marginBottom={'m'}>
+            <Text marginHorizontal={'l'} color={'black'} marginTop={'s'}>
+              Nearest Device
+            </Text>
+
+            <FlatList
+              data={topFive}
+              extraData={allDevices}
+              renderItem={({item}) => renderItem(item)}
+              initialNumToRender={2}
+              ListEmptyComponent={ListEmptyComponent()}
+              ListFooterComponent={ListFooterComponent()}
+            />
+            <Text marginHorizontal={'l'} color={'black'} marginTop={'s'}>
+              Other Device
+            </Text>
+            <FlatList
+              data={removeTopFiveList()}
+              extraData={allDevices}
+              renderItem={({item}) => renderItem(item)}
+              initialNumToRender={2}
+              ListEmptyComponent={ListEmptyComponent()}
+              ListFooterComponent={ListFooterComponent()}
+            />
+          </Box>
+        </ScrollView>
+      </Box>
+    </Screen>
   );
 });

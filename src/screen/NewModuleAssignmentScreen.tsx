@@ -10,6 +10,7 @@ import {moduleFactory} from '../factory/ModuleFactory';
 import {Device} from 'react-native-ble-plx';
 import {ModuleAlreadyExists} from '../component/NewModuleAssignment/ModuleAlreadyExists';
 import {AssignNewModule} from '../component/NewModuleAssignment/AssignNewModule';
+import {Screen, StatusBarType} from '../component/Screen';
 
 export const NewModuleAssignmentScreen: React.FC = () => {
   const {goBack} = useNavigation<StackNavigationProp<StackParamList>>();
@@ -66,14 +67,16 @@ export const NewModuleAssignmentScreen: React.FC = () => {
   };
 
   return (
-    <Box flex={1} backgroundColor={'bg_white'}>
-      <HomeHeader
-        label={'New Modules ID Assignment'}
-        onBackPress={() => {
-          goBack();
-        }}
-      />
-      {renderContent()}
-    </Box>
+    <Screen statusBarType={StatusBarType.Dark}>
+      <Box flex={1} backgroundColor={'pattensBlue'}>
+        <HomeHeader
+          label={'New Modules ID Assignment'}
+          onBackPress={() => {
+            goBack();
+          }}
+        />
+        {renderContent()}
+      </Box>
+    </Screen>
   );
 };

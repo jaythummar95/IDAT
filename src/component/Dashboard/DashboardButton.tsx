@@ -15,6 +15,10 @@ export const DashboardButton: React.FC<DashboardButtonProps> = observer(
     return (
       <Box>
         <Pressable
+          shadowColor={'gray'}
+          shadowOffset={{width: 0, height: 1}}
+          shadowOpacity={0.3}
+          shadowRadius={2}
           onPress={onPress}
           borderRadius={10}
           borderColor={'pattensBlue'}
@@ -23,7 +27,7 @@ export const DashboardButton: React.FC<DashboardButtonProps> = observer(
           alignSelf={'center'}
           elevation={5}
           justifyContent={'center'}
-          backgroundColor={'pattensBlue'}
+          backgroundColor={'white'}
           height={DeviceHelper.calculateHeightRatio(150)}
           width={DeviceHelper.calculateWidthRatio(300)}>
           <Text

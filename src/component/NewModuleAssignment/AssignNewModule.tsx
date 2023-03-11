@@ -9,7 +9,6 @@ import {navigate, Route} from '../../navigation/AppNavigator';
 import {MultiSelect} from '../MultiSelected/MultiSelect';
 import {Image} from '../Image';
 import {Images} from '../../assets';
-import {DeviceHelper} from '../../helper/DeviceHelper';
 import {Pressable} from '../Pressable';
 import {LabelValuePair} from '../Types';
 
@@ -86,8 +85,8 @@ export const AssignNewModule: React.FC<
     return (
       <Box
         elevation={4}
-        shadowColor={'gray'}
         marginTop={'r'}
+        shadowColor={'gray'}
         shadowOffset={{width: 0, height: 1}}
         shadowOpacity={0.3}
         shadowRadius={2}
@@ -203,8 +202,8 @@ export const AssignNewModule: React.FC<
             alignItems={'center'}
             bottom={6}
             borderRadius={10}
-            height={DeviceHelper.calculateHeightRatio(55)}
-            width={DeviceHelper.calculateHeightRatio(55)}>
+            height={48}
+            width={48}>
             <Image
               source={Images.add}
               width={20}
@@ -274,7 +273,7 @@ export const AssignNewModule: React.FC<
 
   return (
     <Box flex={1}>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <Box flex={1} paddingVertical={'m'}>
           {renderBLECard()}
           {renderBMUCard()}

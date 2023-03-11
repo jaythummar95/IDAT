@@ -74,6 +74,12 @@
 		<string>Montserrat-ThinItalic.ttf</string>
 	</array>
 	<key>NSCameraUsageDescription</key>
-    <string>IDAT use to scan QR Code</string>
+    <string>IDAT use camera to scan QR Code</string>
+    <key>NSBluetoothAlwaysUsageDescription</key>
+    <string>IDAT use Bluetooth to scan near by BLE devices</string>
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>IDAT use location to enhance scan in near by BLE devices</string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>IDAT use location to enhance scan in near by BLE devices</string>
 </dict>
 </plist>

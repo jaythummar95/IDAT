@@ -12,15 +12,18 @@ import {ThemeProvider} from '@shopify/restyle';
 import React, {useEffect, useState} from 'react';
 import theme from './src/style/Theme';
 import {AppNavigator} from './src/navigation/AppNavigator';
-import {SafeAreaView, StatusBar} from 'react-native';
-import {NoBlueTootEnabledFullScreen} from './src/component/NoBlueTootEnabledFullScreenProps';
 import BluetoothStateManager from 'react-native-bluetooth-state-manager';
 import {DeviceHelper} from './src/helper/DeviceHelper';
 import {NoInternetFullScreen} from './src/component/NoInternetFullScreen';
 import {initHttpClient} from './src/core/Http';
 import {BASE_URL} from './src/api/EndPoint';
-import FlashMessage from "react-native-flash-message";
-import { FullScreenProgress, refFullScreenProgress } from "./src/component/FullScreenProgress";
+import FlashMessage from 'react-native-flash-message';
+import {
+  FullScreenProgress,
+  refFullScreenProgress,
+} from './src/component/FullScreenProgress';
+import {Box} from './src/component/Box';
+import {NoBlueTootEnabledFullScreen} from './src/component/NoBlueTootEnabledFullScreenProps';
 
 const App = () => {
   const [blueToothEnabled, setBlueToothEanbaled] = useState(false);
@@ -48,8 +51,7 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <SafeAreaView style={{flex: 1}}>
-        <StatusBar backgroundColor={'#6B61DD'} />
+      <Box flex={1}>
         <NoBlueTootEnabledFullScreen onTryAgain={() => {}}>
           <NoInternetFullScreen onTryAgain={() => {}}>
             {blueToothEnabled && <AppNavigator />}
@@ -57,7 +59,7 @@ const App = () => {
             <FullScreenProgress ref={refFullScreenProgress} />
           </NoInternetFullScreen>
         </NoBlueTootEnabledFullScreen>
-      </SafeAreaView>
+      </Box>
     </ThemeProvider>
   );
 };

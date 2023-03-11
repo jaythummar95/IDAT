@@ -10,7 +10,11 @@ import {Image} from '../component/Image';
 import {DeviceHelper} from '../helper/DeviceHelper';
 import {Images} from '../assets';
 import {authFactory} from '../factory/AuthFactory';
-import { hideFullScreenProgress, showFullScreenProgress } from "../component/FullScreenProgress";
+import {
+  hideFullScreenProgress,
+  showFullScreenProgress,
+} from '../component/FullScreenProgress';
+import {Screen} from '../component/Screen';
 
 export const LoginScreen: React.FC = observer(() => {
   const [secretKey, setSecretKey] = useState('');
@@ -25,34 +29,36 @@ export const LoginScreen: React.FC = observer(() => {
   };
 
   return (
-    <Box backgroundColor={'pattensBlue'} flex={1}>
-      <Box marginHorizontal={'r'} flex={1} justifyContent={'center'}>
-        <Image
-          marginBottom={'el'}
-          alignSelf={'center'}
-          borderRadius={50}
-          source={Images.logo}
-          height={DeviceHelper.calculateHeightRatio(150)}
-          width={DeviceHelper.calculateWidthRatio(150)}
-        />
-        <EditText
-          textLabel={'Secret Login Key:'}
-          value={secretKey}
-          placeholder={'Enter Key'}
-          onChangeValue={text => {
-            setSecretKey(text);
-          }}
-        />
-        <Box marginVertical={'r'}>
-          <Button
-            label={'Login to IDAT'}
-            onPress={() => {
-              authenticateUser();
-            }}
-            isLight={false}
+    <Screen>
+      <Box backgroundColor={'pattensBlue'} flex={1}>
+        <Box marginHorizontal={'r'} flex={1} justifyContent={'center'}>
+          <Image
+            marginBottom={'el'}
+            alignSelf={'center'}
+            borderRadius={50}
+            source={Images.logo}
+            height={DeviceHelper.calculateHeightRatio(150)}
+            width={DeviceHelper.calculateWidthRatio(150)}
           />
+          <EditText
+            textLabel={'Secret Login Key:'}
+            value={secretKey}
+            placeholder={'Enter Key'}
+            onChangeValue={text => {
+              setSecretKey(text);
+            }}
+          />
+          <Box marginVertical={'r'}>
+            <Button
+              label={'Login to IDAT'}
+              onPress={() => {
+                authenticateUser();
+              }}
+              isLight={false}
+            />
+          </Box>
         </Box>
       </Box>
-    </Box>
+    </Screen>
   );
 });

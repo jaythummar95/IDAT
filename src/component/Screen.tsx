@@ -1,6 +1,6 @@
 import React from 'react';
 import {Box} from './Box';
-import {ColorValue, StatusBar} from 'react-native';
+import {ColorValue, SafeAreaView, StatusBar} from 'react-native';
 import {useTheme} from '@shopify/restyle';
 import {Theme} from '../style/Theme';
 
@@ -26,17 +26,23 @@ export const Screen: React.FC<ScreenProps> = (props: ScreenProps) => {
   const statusBarColor = (): ColorValue => {
     switch (statusBarType) {
       case StatusBarType.Light:
-        return colors.white;
+        return colors.pattensBlue;
       case StatusBarType.Dark:
         return colors.primary;
       default:
-        return colors.primary;
+        return colors.pattensBlue;
     }
   };
 
   return (
     <Box flex={1}>
-      <StatusBar animated={true} backgroundColor={statusBarColor()} />
+      <SafeAreaView style={{backgroundColor: statusBarColor()}} />
+      <SafeAreaView style={{backgroundColor: colors.pattensBlue}} />
+      <StatusBar
+        animated={true}
+        backgroundColor={statusBarColor()}
+        barStyle={StatusBarType.Light ? 'dark-content' : 'light-content'}
+      />
       {children}
     </Box>
   );

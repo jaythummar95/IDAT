@@ -15,6 +15,10 @@ export const PowerOnYourDevice: React.FC<PowerOnYourDeviceProps> = ({
   return (
     <Box flex={1} paddingTop={'l'} alignItems={'center'}>
       <Box
+        shadowColor={'gray'}
+        shadowOffset={{width: 0, height: 1}}
+        shadowOpacity={0.3}
+        shadowRadius={2}
         borderRadius={10}
         borderColor={'pattensBlue'}
         borderWidth={1}
@@ -22,7 +26,7 @@ export const PowerOnYourDevice: React.FC<PowerOnYourDeviceProps> = ({
         alignSelf={'center'}
         elevation={5}
         justifyContent={'center'}
-        backgroundColor={'pattensBlue'}
+        backgroundColor={'white'}
         height={DeviceHelper.calculateHeightRatio(150)}
         width={DeviceHelper.calculateWidthRatio(300)}>
         <Text

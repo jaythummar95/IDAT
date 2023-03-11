@@ -31,7 +31,11 @@ export const HomeHeader: React.FC<HomeHeaderProps> = observer(
         shadowRadius={2}
         width={DeviceHelper.width()}
         height={DeviceHelper.calculateHeightRatio(70)}>
-        <Box marginHorizontal={'s'} flexDirection={'row'} flex={1}>
+        <Box
+          marginHorizontal={'s'}
+          flexDirection={'row'}
+          flex={1}
+          alignItems={'center'}>
           {isMenu ? (
             <Box flex={0.5} justifyContent={'center'} marginTop={'sr'}>
               <Pressable
@@ -46,16 +50,18 @@ export const HomeHeader: React.FC<HomeHeaderProps> = observer(
               </Pressable>
             </Box>
           ) : (
-            <Box flex={0.5} justifyContent={'center'} marginTop={'sr'}>
+            <Box flex={0.5} justifyContent={'center'}>
               <Pressable
                 onPress={onBackPress}
                 height={DeviceHelper.calculateHeightRatio(40)}
+                justifyContent={'center'}
+                alignItems={'center'}
                 width={DeviceHelper.calculateWidthRatio(40)}>
                 <Image
                   source={Images.leftArrowW}
-                  resizeMode={'center'}
-                  height={DeviceHelper.calculateHeightRatio(25)}
-                  width={DeviceHelper.calculateWidthRatio(30)}
+                  resizeMode={'contain'}
+                  height={DeviceHelper.calculateHeightRatio(23)}
+                  width={DeviceHelper.calculateWidthRatio(23)}
                 />
               </Pressable>
             </Box>
@@ -64,7 +70,7 @@ export const HomeHeader: React.FC<HomeHeaderProps> = observer(
             <Text
               fontSize={18}
               textAlign={'center'}
-              fontFamily={fonts.regular}
+              fontFamily={fonts.medium}
               color={'primary2'}>
               {label}
             </Text>
