@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Screen, StatusBarType} from '../component/Screen';
 import {Box} from '../component/Box';
 import {HomeHeader} from '../component/HomeHeader/HomeHeader';
-import {goBack} from '../navigation/AppNavigator';
+import {goBack, navigate, Route} from '../navigation/AppNavigator';
 import {EnterOrScanBMU} from '../component/NewModuleAssignment/EnterOrScanBMU';
 import {Text} from '../component/Text';
 import {fonts} from '../style/Fonts';
@@ -86,7 +86,9 @@ export const TestingModuleScreen: React.FC = () => {
           <Button
             label={'Start'}
             onPress={() => {
-              goBack();
+              navigate({
+                screenName: Route.TestingProcess,
+              });
             }}
           />
         </Box>
