@@ -6,7 +6,7 @@ class ModuleFactory {
     try {
       const response = await checkModuleExistsApi.post({
         token: '',
-        macAddress,
+        macAddress, //TODO:: This can be BMU Id also
       });
       return response;
     } catch (e) {

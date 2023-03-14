@@ -8,31 +8,27 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {observer} from 'mobx-react-lite';
 import {LoginScreen} from '../screen/LoginScreen';
 import {DashboardScreen} from '../screen/DashboardScreen';
-import {IdAssignmentScreen} from '../screen/IdAssignmentScreen';
 import {Box} from '../component/Box';
 import {StatusBar} from 'react-native';
 import {useTheme} from '@shopify/restyle';
 import {Theme} from '../style/Theme';
-import {ModuleAlreadyExistsScreen} from '../screen/ModuleAlreadyExistsScreen';
-import {TestingScreen} from '../screen/TestingScreen';
 import {TestingProcessFirmwareScreen} from '../screen/TestingProcessFirmwareScreen';
-import {TestCasesScreen} from '../screen/TestCasesScreen';
 import {NewModuleAssignmentScreen} from '../screen/NewModuleAssignmentScreen';
 import {ScanQrCodeScreen} from '../screen/ScanQrCodeScreen';
+import {TestingModuleScreen} from '../screen/TestingModuleScreen';
 
 export type StackParamList = {
   SplashScreen: undefined;
   LoginScreen: undefined;
   DashboardScreen: undefined;
-  IdAssignmentScreen: undefined;
   ModuleAlreadyExistsScreen: {
     ip: string;
   };
   TestingScreen: undefined;
   TestingProcessFirmwareScreen: undefined;
-  TestCasesScreen: undefined;
   NewModuleAssignmentScreen: undefined;
   ScanQrCodeScreen: {onScanComplete: (qrcodeResult: string) => void};
+  TestingModuleScreen: undefined;
 };
 const navigationRef = createNavigationContainerRef<StackParamList>();
 
@@ -59,13 +55,11 @@ export enum Route {
   Splash = 'SplashScreen',
   Login = 'LoginScreen',
   Dashboard = 'DashboardScreen',
-  IdAssignment = 'IdAssignmentScreen',
-  ModuleAlreadyExists = 'ModuleAlreadyExistsScreen',
-  Testing = 'TestingScreen',
   TestingProcess = 'TestingProcessFirmwareScreen',
   TestCases = 'TestCasesScreen',
   NewModuleAssignment = 'NewModuleAssignmentScreen',
   ScanQrCode = 'ScanQrCodeScreen',
+  TestingModule = 'TestingModuleScreen',
 }
 
 export const AppNavigator: React.FC = observer(() => {
@@ -83,24 +77,18 @@ export const AppNavigator: React.FC = observer(() => {
           <Stack.Screen name={Route.Login} component={LoginScreen} />
           <Stack.Screen name={Route.Dashboard} component={DashboardScreen} />
           <Stack.Screen
-            name={Route.IdAssignment}
-            component={IdAssignmentScreen}
-          />
-          <Stack.Screen
-            name={Route.ModuleAlreadyExists}
-            component={ModuleAlreadyExistsScreen}
-          />
-          <Stack.Screen name={Route.Testing} component={TestingScreen} />
-          <Stack.Screen
             name={Route.TestingProcess}
             component={TestingProcessFirmwareScreen}
           />
-          <Stack.Screen name={Route.TestCases} component={TestCasesScreen} />
           <Stack.Screen
             name={Route.NewModuleAssignment}
             component={NewModuleAssignmentScreen}
           />
           <Stack.Screen name={Route.ScanQrCode} component={ScanQrCodeScreen} />
+          <Stack.Screen
+            name={Route.TestingModule}
+            component={TestingModuleScreen}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </Box>

@@ -30,7 +30,7 @@ export const DashboardScreen: React.FC = observer(() => {
           <DashboardButton
             lable={'Testing of Existing \n' + 'Module -->'}
             onPress={() => {
-              navigation.navigate(Route.Testing);
+              navigation.navigate(Route.TestingModule);
             }}
           />
           <DashboardButton
