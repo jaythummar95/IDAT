@@ -16,6 +16,7 @@ import {TestingProcessFirmwareScreen} from '../screen/TestingProcessFirmwareScre
 import {NewModuleAssignmentScreen} from '../screen/NewModuleAssignmentScreen';
 import {ScanQrCodeScreen} from '../screen/ScanQrCodeScreen';
 import {TestingModuleScreen} from '../screen/TestingModuleScreen';
+import {ExperimentScreen} from '../screen/ExperimentScreen';
 
 export type StackParamList = {
   SplashScreen: undefined;
@@ -29,6 +30,7 @@ export type StackParamList = {
   NewModuleAssignmentScreen: undefined;
   ScanQrCodeScreen: {onScanComplete: (qrcodeResult: string) => void};
   TestingModuleScreen: undefined;
+  ExperimentScreen: undefined;
 };
 const navigationRef = createNavigationContainerRef<StackParamList>();
 
@@ -60,6 +62,7 @@ export enum Route {
   NewModuleAssignment = 'NewModuleAssignmentScreen',
   ScanQrCode = 'ScanQrCodeScreen',
   TestingModule = 'TestingModuleScreen',
+  Experiment = 'ExperimentScreen',
 }
 
 export const AppNavigator: React.FC = observer(() => {
@@ -72,7 +75,7 @@ export const AppNavigator: React.FC = observer(() => {
           screenOptions={{
             headerShown: false,
           }}
-          initialRouteName={Route.Splash}>
+          initialRouteName={Route.Experiment}>
           <Stack.Screen name={Route.Splash} component={SplashScreen} />
           <Stack.Screen name={Route.Login} component={LoginScreen} />
           <Stack.Screen name={Route.Dashboard} component={DashboardScreen} />
@@ -89,6 +92,7 @@ export const AppNavigator: React.FC = observer(() => {
             name={Route.TestingModule}
             component={TestingModuleScreen}
           />
+          <Stack.Screen name={Route.Experiment} component={ExperimentScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </Box>
