@@ -1,3 +1,5 @@
+import {decimalToHexadecimalForRefNumber} from './Utils';
+
 export const REF_NO_RANGE_START = 0;
 export const REF_NO_RANGE_END = 65535;
 
@@ -12,13 +14,13 @@ class RefNumberGenerator {
     this.previousGeneratedNumber = number;
   }
 
-  geRefNumber(): number {
+  geRefNumber(): string {
     let randomNumber = 1;
     if (this.previousGeneratedNumber < REF_NO_RANGE_END) {
       randomNumber = this.previousGeneratedNumber += 1;
     }
     this.setPreviousGeneratedNumber(randomNumber);
-    return randomNumber;
+    return decimalToHexadecimalForRefNumber(randomNumber, 1);
   }
 }
 
