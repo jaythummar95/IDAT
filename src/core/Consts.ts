@@ -1,0 +1,1 @@
+export const FIRMWARE_VERSION_FOR_THE_APP = '1.0';

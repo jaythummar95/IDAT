@@ -15,7 +15,7 @@ import {Theme} from '../style/Theme';
 import {TestingProcessFirmwareScreen} from '../screen/TestingProcessFirmwareScreen';
 import {NewModuleAssignmentScreen} from '../screen/NewModuleAssignmentScreen';
 import {ScanQrCodeScreen} from '../screen/ScanQrCodeScreen';
-import {TestingModuleScreen} from '../screen/TestingModuleScreen';
+import {TestingModuleScreen} from '../screen/TestingModule/TestingModuleScreen';
 import {ExperimentScreen} from '../screen/ExperimentScreen';
 
 export type StackParamList = {
@@ -75,7 +75,7 @@ export const AppNavigator: React.FC = observer(() => {
           screenOptions={{
             headerShown: false,
           }}
-          initialRouteName={Route.Experiment}>
+          initialRouteName={Route.Splash}>
           <Stack.Screen name={Route.Splash} component={SplashScreen} />
           <Stack.Screen name={Route.Login} component={LoginScreen} />
           <Stack.Screen name={Route.Dashboard} component={DashboardScreen} />
