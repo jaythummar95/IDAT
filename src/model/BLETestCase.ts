@@ -3,8 +3,10 @@ import {
   BLETestCaseDto,
   BLETestCaseOverrideAccess,
   BLETestCaseType,
+  ExpectedResultOtherCasesDto,
 } from '../api/DTOs/BLETestCaseDto';
 import {Entity} from './core/entity';
+import {ExpectedResultOtherCases} from './ExpectedResultOtherCases';
 
 export class BLETestCase extends Entity<BLETestCaseDto> {
   constructor(bleTestCaseDto: BLETestCaseDto) {
@@ -31,5 +33,10 @@ export class BLETestCase extends Entity<BLETestCaseDto> {
   }
   get result(): string {
     return this.dto.result ?? '';
+  }
+  get expectedResultOtherCases(): ExpectedResultOtherCases {
+    return new ExpectedResultOtherCases(
+      this.dto.expected_result_other_cases as ExpectedResultOtherCasesDto,
+    );
   }
 }

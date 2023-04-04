@@ -13,4 +13,6 @@ export const Images = {
   search: require('./pngs/Search.png'),
   add: require('./pngs/add.png'),
   splash_logo: require('./pngs/splash_logo.png'),
+  plus: require('./pngs/plus.png'),
+  minus: require('./pngs/minus.png'),
 };

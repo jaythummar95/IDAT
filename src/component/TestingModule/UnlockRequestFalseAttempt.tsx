@@ -19,10 +19,10 @@ export const UnlockRequestFalseAttempt: React.FC<UnlockRequestFalseAttemptProps>
   observer(({controller}: UnlockRequestFalseAttemptProps) => {
     const bleTetCaseItem = controller.getBLETestCaseCrntItem();
     const isResult = !!bleTetCaseItem.result;
-
-    const [didIt, setDidIt] = useState(false);
     const showDedBoltAndOverrideAccess =
       bleTetCaseItem.typeTestCase === BLETestCaseType.UNLOCK_REQUEST_FRAME;
+
+    const [didIt, setDidIt] = useState(false);
 
     const getTestResultStatus = (): string => {
       return bleTetCaseItem.expectedResult === bleTetCaseItem.result
@@ -47,6 +47,7 @@ export const UnlockRequestFalseAttempt: React.FC<UnlockRequestFalseAttemptProps>
       //TODO:: Perform all logic or sending request frame
       //TODO:: Update the result
       controller.updateResultInTestCaseList(bleTetCaseItem.expectedResult);
+      setDidIt(false);
       //TODO:: Disconnect
     };
 
@@ -61,9 +62,8 @@ export const UnlockRequestFalseAttempt: React.FC<UnlockRequestFalseAttemptProps>
             </Text>
           </Box>
         </IDATCard>
-
         <Box flex={1}>
-          <ScrollView>
+          <ScrollView contentContainerStyle={{paddingBottom: 16}}>
             {showDedBoltAndOverrideAccess && (
               <IDATCard>
                 <Box width={'100%'}>

@@ -30,7 +30,7 @@ export const Button: React.FC<ButtonProps> = ({
       justifyContent={'center'}
       alignItems={'center'}
       disabled={disabled}
-      height={DeviceHelper.calculateHeightRatio(55)}
+      minHeight={DeviceHelper.calculateHeightRatio(55)}
       backgroundColor={isLight ? 'gray7' : 'primary'}>
       <Text
         color={isLight ? 'black' : 'primary2'}
